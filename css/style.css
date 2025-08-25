@@ -334,13 +334,6 @@ h1, h2, h3, h4, h5, h6 {
     color: rgb(0, 0, 0);
 }
 
-#availability-info .available {
-    /*background-color: #10B981; /* Hijau */
-}
-
-#availability-info .limited {
-    /*background-color: #F59E0B; /* Oranye */
-}
 
 #availability-info .full {
     color: #EF4444; /* Merah */
