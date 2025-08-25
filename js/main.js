@@ -187,25 +187,46 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCalendarSelection();
         }
 
-        // --- [BARU] Fungsi untuk menampilkan info ketersediaan ---
+
         function updateAvailabilityDisplay() {
             if (!availabilityInfoEl) return;
 
+            // Jika tidak ada tanggal check-in yang dipilih, tampilkan pesan default.
             if (!startDate) {
                 availabilityInfoEl.innerHTML = `<p style="color: var(--gray-500); font-size: 0.8rem;">Pilih tanggal check-in untuk melihat ketersediaan.</p>`;
                 return;
             }
 
-            const dateStr = toYYYYMMDD(startDate);
-            const currentBookings = bookingCounts[dateStr] || 0;
-            const remainingCamps = TOTAL_CAMPS - currentBookings;
+            // Tentukan rentang tanggal yang akan diperiksa.
+            const startRange = new Date(startDate);
+            // Jika ada tanggal checkout, rentang berakhir sehari sebelum checkout. Jika tidak, rentang hanya 1 hari.
+            const endRange = endDate ? new Date(endDate) : new Date(startRange.setDate(startRange.getDate() + 1));
+            startRange.setDate(startDate.getDate()); // Reset startRange setelah dimodifikasi
 
-            if (remainingCamps <= 0) {
+            let minAvailable = TOTAL_CAMPS;
+
+            // Loop untuk setiap hari dalam rentang yang dipilih untuk mencari ketersediaan paling sedikit.
+            let currentDate = new Date(startRange);
+            while (currentDate < endRange) {
+                const dateStr = toYYYYMMDD(currentDate);
+                const currentBookings = bookingCounts[dateStr] || 0;
+                const remainingCamps = TOTAL_CAMPS - currentBookings;
+                
+                // Simpan angka ketersediaan yang paling kecil.
+                if (remainingCamps < minAvailable) {
+                    minAvailable = remainingCamps;
+                }
+
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            // Tampilkan hasil ketersediaan terkecil yang ditemukan.
+            if (minAvailable <= 0) {
                 availabilityInfoEl.innerHTML = `<span class="full">Penuh</span>`;
-            } else if (remainingCamps <= 2) { // Angka '2' bisa diubah untuk status "terbatas"
-                availabilityInfoEl.innerHTML = `Tersisa <span class="count limited">${remainingCamps}</span> Camp`;
+            } else if (minAvailable <= 2) { // Angka '2' bisa diubah untuk status "terbatas"
+                availabilityInfoEl.innerHTML = `Tersisa <span class="count limited">${minAvailable}</span> camp`;
             } else {
-                availabilityInfoEl.innerHTML = `Tersedia <span class="count available">${remainingCamps}</span> Camp`;
+                availabilityInfoEl.innerHTML = `Tersedia <span class="count available">${minAvailable}</span> camp`;
             }
         }
 
