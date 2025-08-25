@@ -316,6 +316,38 @@ h1, h2, h3, h4, h5, h6 {
 #booking-error { color: #E53E3E; font-size: 0.875rem; margin-top: 0.5rem; height: 1rem; }
 
 /* ====================================================== */
+/* STYLE UNTUK INFORMASI KETERSEDIAAN (BARU) */
+/* ====================================================== */
+#availability-info {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    border-radius: 0.375rem; /* 6px */
+    transition: all 0.2s ease-in-out;
+}
+
+#availability-info .count {
+    font-weight: 700;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    color: rgb(0, 0, 0);
+}
+
+#availability-info .available {
+    /*background-color: #10B981; /* Hijau */
+}
+
+#availability-info .limited {
+    /*background-color: #F59E0B; /* Oranye */
+}
+
+#availability-info .full {
+    color: #EF4444; /* Merah */
+    font-weight: 700;
+}
+
+/* ====================================================== */
 /* GENERAL SECTIONS (Dari CSS 1)       */
 /* ====================================================== */
 .section {
@@ -411,6 +443,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #000000;
 }
 .faq-question .icon {
     transition: transform 0.3s ease-out;
@@ -428,6 +461,7 @@ h1, h2, h3, h4, h5, h6 {
 .faq-item.active .faq-answer {
     max-height: 200px; /* Adjust if answers are longer */
     padding: 0 1rem 1.5rem;
+    color: #000000;
 }
 .faq-item.active .faq-question .icon {
     transform: rotate(45deg);
