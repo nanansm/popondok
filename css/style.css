@@ -97,6 +97,11 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--brand-green);
     text-decoration: none;
 }
+.navbar .nav-logo img {
+    height: 25px; 
+    width: auto; 
+    display: block;
+}
 .nav-links {
     display: none;
     gap: 3rem;
@@ -149,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ====================================================== */
 .hero-section {
     height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../img/imagebg.webp');
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.0)), url('../img/imagebg.webp');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -161,9 +166,10 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem;
 }
 .hero-text h1 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    line-height: 1.2;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1;
+    max-width: 750px;
 }
 .hero-text p {
     font-size: 16px;
@@ -353,7 +359,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.8rem; font-weight: 600; color: var(--brand-dark);margin-bottom: 20px;
 }
 .section-header p {
-    font-size: 1rem; color: var(--black); margin-top: 0.5rem; max-width: 400px; margin-left: auto; margin-right: auto;
+    font-size: 1rem; color: var(--black); margin-top: 0.5rem; margin-left: auto; margin-right: auto;
 }
 .grid-3 {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;
