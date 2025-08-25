@@ -88,7 +88,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const confirmWhatsappBtn = document.getElementById('confirm-whatsapp-btn');
         
         // --- Fungsi Helper ---
-        const toYYYYMMDD = (date) => date.toISOString().split('T')[0];
+        const toYYYYMMDD = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
         const showLoader = () => loaderOverlay.classList.remove('hidden');
         const hideLoader = () => loaderOverlay.classList.add('hidden');
         
