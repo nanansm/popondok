@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // KONSTANTA & VARIABEL GLOBAL
     // ====================================================== //
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1pBZpQatiIUsIz0y4JqbZjoGK6zXZAy692BM7ePIBz1MzA396xTxZv61Yo46WMe4w/exec"; // <<-- PASTIKAN URL INI BENAR
-    const NOMOR_ADMIN_WA = "628112131496";
+    const NOMOR_ADMIN_WA = "6281333311851";
     const TOTAL_CAMPS = 4; // <<-- [BARU] SESUAIKAN DENGAN KAPASITAS MAKSIMAL ANDA
 
     // Variabel state (status)
@@ -27,9 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Elemen DOM Umum
     const loaderOverlay = document.getElementById('loader-overlay');
 
-    // ====================================================== //
-    // LOGIKA MENU MOBILE (Tidak ada perubahan)
-    // ====================================================== //
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
@@ -46,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ====================================================== //
-    // LOGIKA FAQ ACCORDION (Tidak ada perubahan)
+    // LOGIKA FAQ ACCORDION
     // ====================================================== //
     const faqItems = document.querySelectorAll('.faq-item');
 
@@ -66,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ====================================================== //
-    // LOGIKA KALENDER & BOOKING (PERUBAHAN UTAMA)
+    // LOGIKA KALENDER & BOOKING
     // ====================================================== //
     const calendarGrid = document.getElementById('calendar-grid');
 
@@ -79,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const checkoutDateEl = document.getElementById('checkout-date');
         const bookNowBtn = document.getElementById('book-now-btn');
         const bookingErrorEl = document.getElementById('booking-error');
-        const availabilityInfoEl = document.getElementById('availability-info'); // <<-- [BARU] Elemen info ketersediaan
+        const availabilityInfoEl = document.getElementById('availability-info');
         const homePage = document.getElementById('homePage');
         const checkoutPage = document.getElementById('checkoutPage');
         const confirmationPage = document.getElementById('confirmationPage');
@@ -90,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // --- Fungsi Helper ---
         const toYYYYMMDD = (date) => {
             const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // Bulan dimulai dari 0
+            const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
             return `${year}-${month}-${day}`;
         };
@@ -193,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Jika tidak ada tanggal check-in yang dipilih, tampilkan pesan default.
             if (!startDate) {
-                availabilityInfoEl.innerHTML = `<p style="color: var(--gray-500); font-size: 0.8rem;">Pilih tanggal check-in untuk melihat ketersediaan.</p>`;
+                availabilityInfoEl.innerHTML = `<p style="color: var(--gray-500); font-size: 0.8rem;">Pilih tanggal check-in untuk melihat ketersediaan Camp.</p>`;
                 return;
             }
 
@@ -293,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         
-        // --- Pendaftaran Event Listener (Tidak ada perubahan) ---
+        // --- Pendaftaran Event Listener  ---
         prevMonthBtn.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
             renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
@@ -315,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const email = lastBookingData.get('email');
                 const checkin = new Date(lastBookingData.get('checkin')+'T00:00:00').toLocaleDateString('id-ID', options);
                 const checkout = new Date(lastBookingData.get('checkout')+'T00:00:00').toLocaleDateString('id-ID', options);
-                const pesan = `Halo Popondok! Saya mau Booking Camp.\n\nAtas Nama : ${nama}\nNo HP : ${no_hp}\nEmail : ${email}\nCheck In : ${checkin}\nCheck Out : ${checkout}\n\nTolong Konfirmasi ketersediaan Kamarnya yah?`;
+                const pesan = `Halo Popondok! Saya mau Booking Camp.\n\nAtas Nama : ${nama}\nNo HP : ${no_hp}\nEmail : ${email}\nCheck In : ${checkin}\nCheck Out : ${checkout}\n\nInformasi Ketentuan : \nCheck In Jam 15:00 WIB dan \nCheck Out Jam 12:00 WIB.\n\nTolong Konfirmasi ketersediaan Kamarnya yah?`;
                 const waLink = `https://api.whatsapp.com/send?phone=${NOMOR_ADMIN_WA}&text=${encodeURIComponent(pesan)}`;
                 window.open(waLink, '_blank');
                 showPage('homePage');
