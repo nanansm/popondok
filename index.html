@@ -150,7 +150,7 @@
                                 <span class="icon">+</span>
                             </button>
                             <div class="faq-answer">
-                                <p>Setiap tenda dilengkapi dengan kasur queen-size yang nyaman, bantal, selimut, listrik, lampu, dan area teras pribadi. Kamar mandi dengan air panas juga tersedia di area komunal.</p>
+                                <p>Setiap tenda dilengkapi dengan 1 kasur queen-size dan 1 kasur single-size  yang nyaman, bantal, selimut, listrik, lampu, dan area teras pribadi. Kamar mandi dengan air panas juga tersedia di area komunal.</p>
                             </div>
                         </div>
                         <div class="faq-item">
@@ -168,7 +168,16 @@
                                 <span class="icon">+</span>
                             </button>
                             <div class="faq-answer">
-                                <p>Waktu check-in dimulai pukul 15:00 WIB dan waktu check-out adalah pukul 12:00 WIB. Permintaan untuk check-in lebih awal atau check-out lebih lambat akan bergantung pada ketersediaan.</p>
+                                <p>Waktu check-in pukul 15.00 WIB dan check-out pukul 12.00 WIB. Permintaan untuk check-in lebih awal tidak bisa dilakukan.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>Berapa kapasitas setiap camp nya?</span>
+                                <span class="icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Setiap camp memiliki kapasitas maksimal 4 orang/camp.</p>
                             </div>
                         </div>
                         <div class="faq-item">
@@ -177,7 +186,25 @@
                                 <span class="icon">+</span>
                             </button>
                             <div class="faq-answer">
-                                <p>Untuk menjaga kenyamanan semua tamu dan kebersihan area, saat ini kami belum mengizinkan hewan peliharaan untuk menginap.</p>
+                                <p>Tidak diperkenankan membawa hewan peliharaan.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>Posisi kamar mandi berapa di dalam atau di luar camp?</span>
+                                <span class="icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Kamar mandi berada di luar camp, bersifat sharing namun dikhususkan untuk tamu Popondok saja.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question">
+                                <span>Apakah di sediakan alat masak dan makan?</span>
+                                <span class="icon">+</span>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Tidak diperkenankan membawa alat masak dari luar, namun tamu Popondok tidak perlu khawatir karena di sekitar glamping terdapat cafe dan outlet BBQ untuk beraktifitas di malam hari sambil chill bersama keluarga</p>
                             </div>
                         </div>
                     </div>
@@ -242,6 +269,25 @@
                             <input id="full-name" name="nama" type="text" required placeholder="Nama Lengkap">
                             <input id="phone-number" name="no_hp" type="tel" required placeholder="Nomor Handphone (Contoh: 0812...)">
                             <input id="email" name="email" type="email" required placeholder="Alamat Email">
+                        </div>
+                        <div style="margin-top: 1.5rem; border-top: 1px solid #E5E7EB; padding-top: 1.5rem;">
+                            <p style="text-align: center; font-size: 0.875rem; color: var(--gray-600); margin-bottom: 1rem;">
+                                Data Tamu yang Menginap
+                            </p>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                                <div>
+                                    <label for="dewasa" style="font-size: 0.8rem; color: var(--gray-800);">Dewasa</label>
+                                    <input id="dewasa" name="dewasa" type="number" min="1" value="1" required style="width: 100%; padding: 0.5rem; border: 1px solid #D1D5DB; border-radius: 0.375rem; margin-top: 0.25rem;">
+                                </div>
+                                <div>
+                                    <label for="anak" style="font-size: 0.8rem; color: var(--gray-800);">Anak</label>
+                                    <input id="anak" name="anak" type="number" min="0" value="0" required style="width: 100%; padding: 0.5rem; border: 1px solid #D1D5DB; border-radius: 0.375rem; margin-top: 0.25rem;">
+                                </div>
+                                <div>
+                                    <label for="lansia" style="font-size: 0.8rem; color: var(--gray-800);">Lansia</label>
+                                    <input id="lansia" name="lansia" type="number" min="0" value="0" required style="width: 100%; padding: 0.5rem; border: 1px solid #D1D5DB; border-radius: 0.375rem; margin-top: 0.25rem;">
+                                </div>
+                            </div>
                         </div>
                         <div style="margin-top: 1.5rem;">
                             <button type="submit" class="btn-primary">Kirim Reservasi</button>
