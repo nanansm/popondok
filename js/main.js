@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const email = lastBookingData.get('email');
                 const checkin = new Date(lastBookingData.get('checkin')+'T00:00:00').toLocaleDateString('id-ID', options);
                 const checkout = new Date(lastBookingData.get('checkout')+'T00:00:00').toLocaleDateString('id-ID', options);
-                const pesan = `Halo Popondok! Saya mau Booking Camp.\n\nAtas Nama : ${nama}\nNo HP : ${no_hp}\nEmail : ${email}\nCheck In : ${checkin}\nCheck Out : ${checkout}\n\nInformasi Ketentuan : \nCheck In Jam 15:00 WIB dan \nCheck Out Jam 12:00 WIB.\n\nTolong Konfirmasi ketersediaan Kamarnya yah?`;
+                const pesan = `Halo Popondok! Saya mau Booking Camp.\n\nAtas Nama : ${nama}\nNo HP : ${no_hp}\nEmail : ${email}\nCheck In : ${checkin}\nCheck Out : ${checkout}\n\nKetentuan : \nCheck In Jam 15:00 WIB dan \nCheck Out Jam 12:00 WIB.\n\nTolong Konfirmasi ketersediaan Kamarnya yah?`;
                 const waLink = `https://api.whatsapp.com/send?phone=${NOMOR_ADMIN_WA}&text=${encodeURIComponent(pesan)}`;
                 window.open(waLink, '_blank');
                 showPage('homePage');
