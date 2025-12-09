@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const anak = lastBookingData.get('anak');
                 const lansia = lastBookingData.get('lansia');
                 
-                const pesan = `Halo Popondok! Saya mau Booking kamar.\n\n*Detail Pemesan:*\nNama: ${nama}\nNo HP: ${no_hp}\nEmail: ${email}\n\n*Jadwal Menginap:*\nCheck In: ${checkin}\nCheck Out: ${checkout}\n\n*Jumlah Tamu:*\nDewasa: ${dewasa} orang\nAnak: ${anak} orang\nLansia: ${lansia} orang\n\n*Ketentuan:* \nCheck In Jam 15:00 WIB dan \nCheck Out Jam 12:00 WIB.\n\nTolong konfirmasi ketersediaan kamarnya, ya. Terima kasih!`;
+                const pesan = `Halo Popondok!\n*Apakah masih Ready min? untuk pesanan dibawah ini :*\n\n*Detail Pemesan:*\nNama: ${nama}\nNo HP: ${no_hp}\nEmail: ${email}\n\n*Jadwal Menginap:*\nCheck In: ${checkin}\nCheck Out: ${checkout}\n\n*Jumlah Tamu:*\nDewasa: ${dewasa} orang\nAnak: ${anak} orang\nLansia: ${lansia} orang\n\n*Ketentuan:* \nCheck In Jam 15:00 WIB dan \nCheck Out Jam 12:00 WIB.\n\nTolong konfirmasi ketersediaan kamarnya, ya. Terima kasih!`;
         
                 const waLink = `https://api.whatsapp.com/send?phone=${NOMOR_ADMIN_WA}&text=${encodeURIComponent(pesan)}`;
                 window.open(waLink, '_blank');
