@@ -13,20 +13,21 @@ document.addEventListener('DOMContentLoaded', function () {
     // ====================================================== //
     // KONSTANTA & VARIABEL GLOBAL
     // ====================================================== //
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1pBZpQatiIUsIz0y4JqbZjoGK6zXZAy692BM7ePIBz1MzA396xTxZv61Yo46WMe4w/exec"; // <<-- PASTIKAN URL INI BENAR
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1pBZpQatiIUsIz0y4JqbZjoGK6zXZAy692BM7ePIBz1MzA396xTxZv61Yo46WMe4w/exec"; 
     const NOMOR_ADMIN_WA = "6281333311851";
-    const TOTAL_CAMPS = 4; // <<-- [BARU] SESUAIKAN DENGAN KAPASITAS MAKSIMAL ANDA
+    const TOTAL_CAMPS = 4; // Kapasitas maksimal unit Popondok
 
-    // Variabel state (status)
     let currentDate = new Date();
     let startDate = null;
     let endDate = null;
-    let bookingCounts = {}; // <<-- [DIUBAH] Variabel untuk menyimpan jumlah booking per tanggal
+    let bookingCounts = {}; // Objek untuk menyimpan jumlah booking per tanggal dari Sheet
     let lastBookingData = null;
 
-    // Elemen DOM Umum
     const loaderOverlay = document.getElementById('loader-overlay');
 
+    // ====================================================== //
+    // LOGIKA MENU MOBILE
+    // ====================================================== //
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
@@ -36,9 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
             mobileMenu.style.display = isVisible ? 'none' : 'flex';
         });
         document.querySelectorAll('.mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.style.display = 'none';
-            });
+            link.addEventListener('click', () => { mobileMenu.style.display = 'none'; });
         });
     }
 
@@ -46,18 +45,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // LOGIKA FAQ ACCORDION
     // ====================================================== //
     const faqItems = document.querySelectorAll('.faq-item');
-
     if (faqItems.length > 0) {
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
             question.addEventListener('click', () => {
                 const isActive = item.classList.contains('active');
-                faqItems.forEach(otherItem => {
-                    otherItem.classList.remove('active');
-                });
-                if (!isActive) {
-                    item.classList.add('active');
-                }
+                faqItems.forEach(otherItem => otherItem.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
             });
         });
     }
@@ -68,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const calendarGrid = document.getElementById('calendar-grid');
 
     if (calendarGrid) {
-        // Elemen DOM
         const monthYearEl = document.getElementById('month-year');
         const prevMonthBtn = document.getElementById('prev-month');
         const nextMonthBtn = document.getElementById('next-month');
@@ -84,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const checkoutForm = document.getElementById('checkout-form');
         const confirmWhatsappBtn = document.getElementById('confirm-whatsapp-btn');
         
-        // --- Fungsi Helper ---
+        // --- Fungsi Helper Tanggal ---
         const toYYYYMMDD = (date) => {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -94,10 +87,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const showLoader = () => loaderOverlay.classList.remove('hidden');
         const hideLoader = () => loaderOverlay.classList.add('hidden');
         
-        // --- [DIUBAH] Logika pengecekan ketersediaan berdasarkan jumlah ---
+        // Logika pengecekan ketersediaan (Hanya cek malam menginap, checkout diabaikan)
         const isRangeBooked = (start, end) => {
             let current = new Date(start);
-            while (current < end) {
+            while (current < end) { // "Strict <" agar pagi hari checkout tidak dihitung sebagai malam menginap
                 const dateString = toYYYYMMDD(current);
                 if ((bookingCounts[dateString] || 0) >= TOTAL_CAMPS) return true;
                 current.setDate(current.getDate() + 1);
@@ -112,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCalendarSelection();
         };
 
-        // --- Fungsi Utama Kalender ---
+        // --- Fetch Data dari Google Sheet ---
         async function fetchBookedDates() {
             showLoader();
             try {
@@ -120,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
                 const data = await response.json();
                 if (data.status === "success") {
-                    // --- [DIUBAH] Menyimpan objek jumlah booking ---
                     bookingCounts = data.bookingCounts;
                     renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
                 } else {
@@ -150,7 +142,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 dayEl.classList.add('calendar-day');
                 dayEl.dataset.date = dateString;
                 
-                // --- [DIUBAH] Cek ketersediaan berdasarkan jumlah ---
                 const currentBookings = bookingCounts[dateString] || 0;
                 
                 if (date < new Date(new Date().toDateString())) {
@@ -173,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (date > startDate) {
                 endDate = date;
                 if (isRangeBooked(startDate, endDate)) {
-                    if (bookingErrorEl) bookingErrorEl.textContent = 'Beberapa tanggal di rentang ini sudah penuh.';
+                    if (bookingErrorEl) bookingErrorEl.textContent = 'Maaf, di antara tanggal tersebut sudah penuh.';
                     startDate = null;
                     endDate = null;
                 }
@@ -184,43 +175,31 @@ document.addEventListener('DOMContentLoaded', function () {
             updateCalendarSelection();
         }
 
-
+        // --- Menampilkan Info Sisa Camp Terkecil dalam Rentang ---
         function updateAvailabilityDisplay() {
             if (!availabilityInfoEl) return;
 
-            // Jika tidak ada tanggal check-in yang dipilih, tampilkan pesan default.
             if (!startDate) {
                 availabilityInfoEl.innerHTML = `<p style="color: var(--gray-500); font-size: 0.8rem;">Pilih tanggal check-in untuk melihat ketersediaan Camp.</p>`;
                 return;
             }
 
-            // Tentukan rentang tanggal yang akan diperiksa.
             const startRange = new Date(startDate);
-            // Jika ada tanggal checkout, rentang berakhir sehari sebelum checkout. Jika tidak, rentang hanya 1 hari.
-            const endRange = endDate ? new Date(endDate) : new Date(startRange.setDate(startRange.getDate() + 1));
-            startRange.setDate(startDate.getDate()); // Reset startRange setelah dimodifikasi
+            const endRange = endDate ? new Date(endDate) : new Date(new Date(startDate).setDate(startDate.getDate() + 1));
 
             let minAvailable = TOTAL_CAMPS;
-
-            // Loop untuk setiap hari dalam rentang yang dipilih untuk mencari ketersediaan paling sedikit.
-            let currentDate = new Date(startRange);
-            while (currentDate < endRange) {
-                const dateStr = toYYYYMMDD(currentDate);
-                const currentBookings = bookingCounts[dateStr] || 0;
-                const remainingCamps = TOTAL_CAMPS - currentBookings;
-                
-                // Simpan angka ketersediaan yang paling kecil.
-                if (remainingCamps < minAvailable) {
-                    minAvailable = remainingCamps;
-                }
-
-                currentDate.setDate(currentDate.getDate() + 1);
+            let current = new Date(startRange);
+            while (current < endRange) {
+                const dateStr = toYYYYMMDD(current);
+                const count = bookingCounts[dateStr] || 0;
+                const available = TOTAL_CAMPS - count;
+                if (available < minAvailable) minAvailable = available;
+                current.setDate(current.getDate() + 1);
             }
 
-            // Tampilkan hasil ketersediaan terkecil yang ditemukan.
             if (minAvailable <= 0) {
                 availabilityInfoEl.innerHTML = `<span class="full">Penuh</span>`;
-            } else if (minAvailable <= 2) { // Angka '2' bisa diubah untuk status "terbatas"
+            } else if (minAvailable <= 2) {
                 availabilityInfoEl.innerHTML = `Tersisa <span class="count limited">${minAvailable}</span> camp`;
             } else {
                 availabilityInfoEl.innerHTML = `Tersedia <span class="count available">${minAvailable}</span> camp`;
@@ -242,16 +221,16 @@ document.addEventListener('DOMContentLoaded', function () {
             if (checkoutDateEl) checkoutDateEl.textContent = endDate ? endDate.toLocaleDateString('id-ID', options) : '-';
             if (bookNowBtn) bookNowBtn.disabled = !(startDate && endDate);
 
-            updateAvailabilityDisplay(); // <<-- [BARU] Panggil fungsi update info setiap kali tanggal berubah
+            updateAvailabilityDisplay();
         }
 
-        // --- Fungsi Navigasi Halaman & Form (Tidak ada perubahan) ---
         function showPage(pageId, data = null) {
             if (homePage) homePage.classList.add('hidden');
             if (checkoutPage) checkoutPage.classList.add('hidden');
             if (confirmationPage) confirmationPage.classList.add('hidden');
             const pageToShow = document.getElementById(pageId);
             if(pageToShow) pageToShow.classList.remove('hidden');
+
             const options = { day: '2-digit', month: 'long', year: 'numeric' };
             if (pageId === 'checkoutPage') {
                 document.getElementById('summary-checkin').textContent = startDate.toLocaleDateString('id-ID', options);
@@ -272,17 +251,13 @@ document.addEventListener('DOMContentLoaded', function () {
             formData.append('checkin', toYYYYMMDD(startDate));
             formData.append('checkout', toYYYYMMDD(endDate));
             try {
-                const response = await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: formData,
-                });
+                const response = await fetch(SCRIPT_URL, { method: 'POST', body: formData });
                 const result = await response.json();
-                if (result.status !== 'success') {
-                    throw new Error(result.message || "Terjadi kesalahan server.");
-                }
+                if (result.status !== 'success') throw new Error(result.message || "Terjadi kesalahan server.");
+                
                 lastBookingData = formData;
                 showPage('confirmationPage', formData);
-                fetchBookedDates();
+                fetchBookedDates(); // Fetch ulang data (stok terbaru)
             } catch (error) {
                 alert(`Gagal mengirim reservasi: ${error.message}`);
             } finally {
@@ -290,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         
-        // --- Pendaftaran Event Listener  ---
+        // --- Event Listeners Navigasi ---
         prevMonthBtn.addEventListener('click', () => {
             currentDate.setMonth(currentDate.getMonth() - 1);
             renderCalendar(currentDate.getFullYear(), currentDate.getMonth());
@@ -303,6 +278,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (bookNowBtn) { bookNowBtn.addEventListener('click', () => { if (startDate && endDate) showPage('checkoutPage'); }); }
         if (backToHomeBtn) { backToHomeBtn.addEventListener('click', () => showPage('homePage')); }
         if (checkoutForm) { checkoutForm.addEventListener('submit', handleCheckoutSubmit); }
+
+        // --- WhatsApp Logic (Termasuk Dewasa, Anak, Lansia) ---
         if (confirmWhatsappBtn) {
             confirmWhatsappBtn.addEventListener('click', () => {
                 if (!lastBookingData) return;
@@ -325,8 +302,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // --- Inisialisasi Kalender ---
-        if (bookNowBtn) bookNowBtn.disabled = true;
         fetchBookedDates();
     }
 });
