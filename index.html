@@ -56,34 +56,41 @@
                     <div class="booking-widget shadow-xl">
                         <h2 style="font-size: 1rem; font-weight: 500; text-align: center; margin-bottom: 1.5rem;">Pilih Jadwal Menginap Kamu</h2>
                         <div class="booking-grid">
-                            <div class="calendar-container">
-                                <div class="calendar-header">
-                                    <button id="prev-month"><svg style="width:1.5rem; height:1.5rem; color: var(--black);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
-                                    <h3 id="month-year"></h3>
-                                    <button id="next-month"><svg style="width:1.5rem; height:1.5rem; color: var(--black);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
-                                </div>
-                                <div class="calendar-days-grid" style="margin-bottom: 0.5rem;">
-                                    <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
-                                </div>
-                                <div id="calendar-grid" class="calendar-grid"></div>
-                            </div>
-                            <div class="booking-details">
-                                <div class="details-box">
-                                    <h4>Akomodasi:</h4>
-                                    <p style="margin-top: 0.25rem;">Glamping Camp</p>
-                                    <hr>
-                                    <h4>Detail Pilihan:</h4>
-                                    <p>Check-in: <span id="checkin-date">-</span></p>
-                                    <p>Check-out: <span id="checkout-date">-</span></p>
-                                    <hr style="border-color: #E5E7EB; margin-top: 1rem; margin-bottom: 0.5rem;">
-                                    <div id="availability-info" style="min-height: 3rem; display: flex; align-items: center;">
-                                        <p style="color: var(--gray-500); font-size: 0.8rem;">Pilih tanggal check-in untuk melihat ketersediaan.</p>
-                                    </div>
-                                 </div>
-                                <button id="book-now-btn" class="btn-primary shadow-lg">Lanjut ke Checkout</button>
-                                <p id="booking-error" class="text-center"></p>
-                            </div>
-                        </div>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prev-month"><svg style="width:1.5rem; height:1.5rem; color: var(--black);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg></button>
+            <h3 id="month-year"></h3>
+            <button id="next-month"><svg style="width:1.5rem; height:1.5rem; color: var(--black);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+        </div>
+        <div class="calendar-days-grid" style="margin-bottom: 0.5rem;">
+            <div>Min</div><div>Sen</div><div>Sel</div><div>Rab</div><div>Kam</div><div>Jum</div><div>Sab</div>
+        </div>
+        <div id="calendar-grid" class="calendar-grid"></div>
+    </div>
+    
+            <div class="booking-details">
+                <div class="details-box">
+                    <h4>Akomodasi:</h4>
+                    <p style="margin-top: 0.25rem;">Glamping Camp</p>
+                    <hr>
+                    <h4>Detail Pilihan:</h4>
+                    <p>Check-in: <span id="checkin-date">-</span></p>
+                    <p>Check-out: <span id="checkout-date">-</span></p>
+                    
+                    <div class="summary-row" style="margin-top: 0.5rem; border-top: 1px dashed #E5E7EB; padding-top: 0.5rem; display: flex; justify-content: space-between;">
+                        <span style="font-weight: 700; color: var(--brand-green);">Total:</span>
+                        <span id="summary-total" style="font-weight: 800; color: var(--brand-green); font-size: 1.1rem;">Rp -</span>
+                    </div>
+                    
+                    <hr style="border-color: #E5E7EB; margin-top: 1rem; margin-bottom: 0.5rem;">
+                    <div id="availability-info" style="min-height: 3rem; display: flex; align-items: center; justify-content: center;">
+                        <p style="color: var(--gray-500); font-size: 0.8rem;">Pilih tanggal check-in.</p>
+                    </div>
+                </div>
+                <button id="book-now-btn" class="btn-primary shadow-lg" disabled>Lanjut ke Checkout</button>
+                <p id="booking-error" class="text-center"></p>
+            </div>
+        
                     </div>
                 </div>
             </section>
@@ -267,8 +274,13 @@
                             <div class="summary-row"><span>Akomodasi:</span><span id="summary-room-type">Glamping Camp</span></div>
                             <div class="summary-row"><span>Check-in:</span><span id="summary-checkin"></span></div>
                             <div class="summary-row"><span>Check-out:</span><span id="summary-checkout"></span></div>
+                            
+                            <div class="summary-row" style="margin-top: 0.5rem; border-top: 1px dashed #E5E7EB; padding-top: 0.5rem;">
+    <span style="font-weight: 700; color: var(--brand-green);">Total Estimasi:</span>
+    <span id="summary-total" style="font-weight: 800; color: var(--brand-green); font-size: 1.1rem;">Rp -</span>
+</div>
+                            </div>
                         </div>
-                    </div>
                     <form id="checkout-form" style="margin-top: 2rem;">
                         <div class="form-group">
                             <input id="full-name" name="nama" type="text" required placeholder="Nama Lengkap">
