@@ -152,6 +152,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ====================================================== */
 /* HERO SECTION (Dari CSS 1)           */
 /* ====================================================== */
+/* Ganti kode .hero-section Anda menjadi seperti ini */
 .hero-section {
     height: 100vh;
     background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.0)), url('../img/imagebg.webp');
@@ -160,10 +161,14 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* Ubah justify-content dari center menjadi flex-end */
+    justify-content: flex-end; 
     color: white;
     text-align: center;
     padding: 1.5rem;
+    /* Tambahkan padding-bottom agar teks tidak menempel ke bawah */
+    /* Gunakan unit 'vh' (view-height) agar tetap responsif */
+    padding-bottom: 15vh; 
 }
 .hero-text h1 {
     font-size: 2rem;

@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ====================================================== //
     // KONSTANTA & VARIABEL GLOBAL
     // ====================================================== //
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1pBZpQatiIUsIz0y4JqbZjoGK6zXZAy692BM7ePIBz1MzA396xTxZv61Yo46WMe4w/exec"; 
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwT2oKcg8Oks1Ct1zC99DrbQVAiVpNeVtf7aCBrbNWHnGLMEeWhk1_EWWTWUb7kL4oV/exec"; 
     const NOMOR_ADMIN_WA = "6281333311851";
     const TOTAL_CAMPS = 4; // Kapasitas maksimal unit Popondok
 
