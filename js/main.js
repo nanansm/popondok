@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             let htmlContent = `<span class="day-number">${day}</span>`;
             if (priceText && !isFull) {
-                htmlContent += `<span class="day-price">${priceText}</span>`;
+               // htmlContent += `<span class="day-price">${priceText}</span>`;
             } else if (isFull) {
                  // Opsional: Tampilkan teks Penuh
                  // htmlContent += `<span class="day-price" style="font-size:0.6rem;">Penuh</span>`; 
