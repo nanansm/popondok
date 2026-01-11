@@ -293,6 +293,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!lastBookingData) return;
             const fmt = { day: '2-digit', month: 'long', year: 'numeric' };
             const nama = lastBookingData.get('nama');
+            const no_hp = lastBookingData.get('no_hp'); 
+            const email = lastBookingData.get('email'); 
             const checkin = new Date(lastBookingData.get('checkin')+'T00:00:00').toLocaleDateString('id-ID', fmt);
             const checkout = new Date(lastBookingData.get('checkout')+'T00:00:00').toLocaleDateString('id-ID', fmt);
             
@@ -305,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const anak = lastBookingData.get('anak') || 0;
             const lansia = lastBookingData.get('lansia') || 0;
 
-            const pesan = `Halo Popondok! 👋\nSaya ingin reservasi:\n\n*Nama:* ${nama}\n*Check In:* ${checkin}\n*Check Out:* ${checkout}\n*Total Estimasi:* ${totalText}\n\n*Tamu:* ${dewasa} Dws, ${anak} Ank, ${lansia} Lan\n\nMohon info pembayaran. Terima kasih!`;
+            const pesan = `Halo Popondok! 👋\nSaya ingin reservasi:\n\n*DATA PEMESAN:*\n👤 Nama: ${nama}\n📱 No HP: ${no_hp}\n📧 Email: ${email}\n\n*DETAIL RESERVASI:*\n📅 Check In: ${checkin}\n📅 Check Out: ${checkout}\n💰 *Total Estimasi:* ${totalText}\n👥 *Tamu:* ${dewasa} Dws, ${anak} Ank, ${lansia} Lan\n\nMohon info pembayaran. Terima kasih!`;
             
             const waLink = `https://api.whatsapp.com/send?phone=${NOMOR_ADMIN_WA}&text=${encodeURIComponent(pesan)}`;
             window.open(waLink, '_blank');
