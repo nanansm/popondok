@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // KONFIGURASI
     // ====================================================== //
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLm5QpsIY-p2ttVlmWIqrIFzXNbjC5B7auvstO_ad1POQ77IepMjzL3VK8LQrKGVRA/exec"; 
-    const NOMOR_ADMIN_WA = "6281333311851";
+    const NOMOR_ADMIN_WA = "6282343898807"; // Ganti dengan nomor WhatsApp admin Anda
     const TOTAL_CAMPS = 4;
 
     let currentDate = new Date();
